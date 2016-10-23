@@ -26,3 +26,5 @@ HEADERS  += \
 
 RESOURCES += \
     resources.qrc
+
+win32:RC_ICONS += appicon.ico

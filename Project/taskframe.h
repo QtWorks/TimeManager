@@ -81,9 +81,16 @@ class TaskFrame : public DummyTaskFrame
     Q_OBJECT
 public:
     TaskFrame(QWidget *parent = 0);
+    TaskFrame(QString loTaskName, int liSecondsSpent, bool lbTimerActive, QWidget* parent = 0);
+
     bool isTaskActive(){return (mpTimer)?mpTimer->isActive():false;}
     QLabel* getTimeLabel() {return mpTimeLabel;}
     QLabel* getTaskLabel() {return mpTaskLabel;}
+
+    QString getTaskName() {return mpTaskLabel->text();}
+    int getSecondsSpent() {return miAcumSeconds;}
+
+    static TaskFrame* createActiveTask (QString loTaskName, int liSecondsSpent, bool lbTimerActive);
 
 protected:
     void mousePressEvent(QMouseEvent *event)

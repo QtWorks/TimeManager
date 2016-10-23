@@ -1,6 +1,9 @@
 #include "tasklistwidget.h"
 
 #include <QSizeGrip>
+#include <QApplication>
+#include <QFile>
+#include <QTextStream>
 
 TaskListWidget::TaskListWidget(QWidget *parent): QScrollArea (parent)
 {
@@ -33,8 +36,62 @@ TaskListWidget::TaskListWidget(QWidget *parent): QScrollArea (parent)
     connect(mpStartTask, SIGNAL(activated()), this, SLOT(startLastTask()));
     mpStartTask = new QShortcut(QKeySequence("Ctrl+C"), this);
     connect(mpStartTask, SIGNAL(activated()), this, SLOT(copyTimeActiveTask()));
+    mpStartTask = new QShortcut(QKeySequence("Ctrl+F"), this);
+    connect(mpStartTask, SIGNAL(activated()), this, SLOT(configureActiveTask()));
 
     addNewTask();
+
+    readTasksData();
+}
+
+TaskListWidget::~TaskListWidget()
+{
+    writeTasksData();
+}
+
+void TaskListWidget::readTasksData()
+{
+    QFile data(QApplication::applicationDirPath() + "/task.dat");
+    if (data.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&data);
+
+        // You could use readAll() here, too.
+        while (!in.atEnd()) {
+            QStringList lvStringList = in.readLine().split(";");
+            int liIndex = lvStringList[0].toInt();
+            QString lsTaskName = lvStringList[1];
+            int liSecondsSpent = lvStringList[2].toInt();
+            bool lbIsActive = lvStringList[3].toInt();
+
+            TaskFrame* lpTaskFrame = new TaskFrame (lsTaskName, liSecondsSpent, lbIsActive, this);
+            if(lbIsActive) mpActiveTask = lpTaskFrame;
+
+            connect(lpTaskFrame, SIGNAL(sndNewTaskCreated()), this, SLOT(addNewTask()));
+            connect(lpTaskFrame, SIGNAL(sndDeleteThisTask()), this, SLOT(deleteTask()));
+            connect(lpTaskFrame, SIGNAL(sndTaskActive()), this, SLOT(sortActiveTask()));
+            connect(lpTaskFrame, SIGNAL(taskPlaying(TaskFrame*)), this, SLOT(rcvTaskPlaying(TaskFrame*)));
+            connect(mpNewTask, SIGNAL(activated()), lpTaskFrame, SLOT(createActiveTask()));
+
+            mpGlobalLayout->insertWidget(liIndex, lpTaskFrame);
+        }
+    }
+    data.close();
+}
+
+void TaskListWidget::writeTasksData()
+{
+    QFile data(QApplication::applicationDirPath() + "/task.dat");
+    if (data.open(QFile::WriteOnly | QFile::Truncate)) {
+        QTextStream out(&data);
+
+        for(int i = 1; i < mpGlobalLayout->count() - 2; i++)
+        {
+            TaskFrame* tempTask = (TaskFrame*)mpGlobalLayout->itemAt(i)->widget();
+            if (tempTask)
+                out << i << ";" << tempTask->getTaskName() << ";" << tempTask->getSecondsSpent() << ";" << tempTask->isTaskActive() << "\n";
+        }
+    }
+    data.close();
 }
 
 void TaskListWidget::addNewTask()
@@ -45,7 +102,6 @@ void TaskListWidget::addNewTask()
     connect(newFrame, SIGNAL(sndDeleteThisTask()), this, SLOT(deleteTask()));
     connect(newFrame, SIGNAL(sndTaskActive()), this, SLOT(sortActiveTask()));
     connect(newFrame, SIGNAL(taskPlaying(TaskFrame*)), this, SLOT(rcvTaskPlaying(TaskFrame*)));
-
     connect(mpNewTask, SIGNAL(activated()), newFrame, SLOT(createActiveTask()));
 
     mpGlobalLayout->insertWidget(0, newFrame);
@@ -101,3 +157,9 @@ void TaskListWidget::copyTimeActiveTask()
 {
     if(mpActiveTask) mpActiveTask->copyTimeInClipboard();
 }
+
+void TaskListWidget::configureActiveTask()
+{
+    if(mpActiveTask) mpActiveTask->showConfigDialog();
+}
+

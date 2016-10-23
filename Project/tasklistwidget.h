@@ -14,6 +14,11 @@ class TaskListWidget : public QScrollArea
 
 public:
     TaskListWidget(QWidget *parent = 0);
+    ~TaskListWidget();
+
+private:
+    void readTasksData();
+    void writeTasksData();
 
 private slots:
     void addNewTask();
@@ -22,6 +27,7 @@ private slots:
     void startLastTask();
     void rcvTaskPlaying(TaskFrame* lpActiveTask);
     void copyTimeActiveTask();
+    void configureActiveTask();
 
 private:
     QVBoxLayout *mpGlobalLayout = 0;

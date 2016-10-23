@@ -33,6 +33,7 @@ void MainDialog::moveDialog (QPoint loMovePoint)
 
 
 
+
 MainDialogHeader::MainDialogHeader(QWidget *parent) : QFrame(parent)
 {
     setContentsMargins(0,0,0,0);
@@ -50,34 +51,6 @@ MainDialogHeader::MainDialogHeader(QWidget *parent) : QFrame(parent)
 
     setLayout(lpHGlobalLay);
 }
-
-
-//void MainDialogHeader::initPixmaps()
-//{
-//    auto loadSVG = [](QString lsSVGFile, QSize &size, QPixmap& loOutputPixmap) -> void
-//    {
-//        QImage image (size, QImage::Format_ARGB32);
-//        image.fill (Qt::transparent);
-//        QPainter painter (&image);
-
-//        QSvgRenderer renderer (lsSVGFile);
-//        renderer.render (&painter);
-//        loOutputPixmap = QPixmap::fromImage(image);
-//    };
-
-//    QSize loIconSize (60,30);
-//    QSize loIconSize_H (120,30);
-//    loadSVG(QString(":/images/resources/bt_config.svg"), loIconSize, moConfIcon);
-//    loadSVG(QString(":/images/resources/bt_config_hover.svg"), loIconSize_H, moConfIcon_H);
-//    loadSVG(QString(":/images/resources/bt_clipboard.svg"), loIconSize, moCopyIcon);
-//    loadSVG(QString(":/images/resources/bt_clipboard_hover.svg"), loIconSize_H, moCopyIcon_H);
-//    loadSVG(QString(":/images/resources/bt_delete.svg"), loIconSize, moDeleteIcon);
-//    loadSVG(QString(":/images/resources/bt_delete_hover.svg"), loIconSize_H, moDeleteIcon_H);
-
-//    mpConfIcon = &moConfIcon;
-//    mpCopyIcon = &moCopyIcon_H;
-//    mpDeleteIcon = &moDeleteIcon;
-//}
 
 void MainDialogHeader::mousePressEvent(QMouseEvent * event)
 {

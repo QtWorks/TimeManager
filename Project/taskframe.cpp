@@ -35,6 +35,20 @@ TaskFrame::TaskFrame(QWidget *parent):DummyTaskFrame (parent)
     setMouseTracking(true);
 }
 
+TaskFrame::TaskFrame (QString loTaskName, int liSecondsSpent, bool lbTimerActive, QWidget* parent) : TaskFrame(parent)
+{
+    rcvConfigTask(loTaskName,liSecondsSpent);
+
+    mpNewTaskLabel->setVisible(false);
+    mpTaskLabel->setVisible(true);
+    mpTimeLabel->setVisible(true);
+
+    if(lbTimerActive) startTask();
+    else setObjectName("paused");
+
+    mbTaskCreated = true;
+}
+
 void TaskFrame::createActiveTask ()
 {
     if(mbTaskCreated) return;
@@ -131,7 +145,7 @@ void TaskFrame::rcvConfigTask(QString lsTaskText,int liAcumSeconds)
 {
     mpTaskLabel->setText(lsTaskText);
     miAcumSeconds = liAcumSeconds;
-    incTimeSpend();
+    setAcumSeconds(miAcumSeconds);
 }
 
 
