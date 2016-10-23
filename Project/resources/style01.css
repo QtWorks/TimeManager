@@ -1,0 +1,122 @@
+MainDialog{
+    background: #262829;
+}
+TaskListWidget {
+    background: #262829;
+     min-height: 200px;
+}
+
+MainDialogHeader
+{
+    background: #AAAAAA;
+}
+
+MainDialogHeader QPushButton#closeButton
+{
+    min-width: 24px;
+    max-width: 24px;
+    min-height: 16px;
+    max-height: 16px;
+    border-image: url(:/images/resources/bt_close.png);
+}
+MainDialogHeader QPushButton#closeButton:hover
+{
+    border-image: url(:/images/resources/bt_close_hover.png);
+}
+
+QFrame#tasksListFrame
+{
+    background: #262829;
+}
+
+DummyTaskFrame
+{
+/*    min-width: 600px;*/
+    min-height: 70px;
+    max-height: 70px;
+    margin: 10px 10px 0px 10px; /*top right bottom left*/
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+TaskFrame
+{
+    min-width: 0px;
+    min-height: 50px;
+    max-height: 50px;
+    margin: 10px 10px 0px 10px; /*top right bottom left*/
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+TaskFrame#playing, DummyTaskFrame#playing{
+    border-radius: 3px;
+    border: 1px solid #AAAAAA;
+    background: #FFE92B;
+}
+TaskFrame#paused{
+    border-radius: 0px;
+    border: 1px solid #AAAAAA;
+    background: #888888;
+}
+
+TaskFrame#nonActive{
+    min-height: 30px;
+    max-height: 30px;
+    border: 2px dashed #AAAAAA;
+    background: transparent;
+}
+
+QLabel#newTaskLabel{
+    font: normal 25pt "Capture It";
+    color: #AAAAAA;
+}
+
+QLabel#taskLabel{
+    font: normal 25pt "Capture It";
+    color: #333333;
+}
+
+QLabel#timeLabel{
+    font: normal 30pt "alarm clock";
+    color: #333333;
+}
+
+FloatingMenu{
+    min-width: 150px;
+    max-width: 150px;
+    min-height: 90px;
+    max-height: 90px;
+}
+
+NewTaskDialog{
+    background: #505253;
+    border: 1px solid #AAAAAA;
+}
+
+    NewTaskDialog QLabel#cnfDlgLabel
+    {
+        font: normal 10pt "Ubuntu";
+        color: #AAAAAA;
+    }
+    NewTaskDialog QLineEdit
+    {
+        margin: 10px 20px 10px 20px;
+        min-width: 180px;
+        max-width: 180px;
+    }
+    NewTaskDialog QLineEdit#lineEditName
+    {
+        font: normal 25pt "Capture It";
+        color: #333333;
+    }
+    NewTaskDialog QLineEdit#lineEditTime
+    {
+        font: normal 25pt "alarm clock";
+        color: #333333;
+    }
+
+
+
+
+

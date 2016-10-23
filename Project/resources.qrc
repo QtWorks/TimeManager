@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>resources/bt_clipboard.svg</file>
+        <file>resources/bt_clipboard_hover.svg</file>
+        <file>resources/bt_config.svg</file>
+        <file>resources/bt_config_hover.svg</file>
+        <file>resources/bt_delete.svg</file>
+        <file>resources/bt_delete_hover.svg</file>
+        <file>resources/bt_close.png</file>
+        <file>resources/bt_close_hover.png</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>resources/Ubuntu-R.ttf</file>
+        <file>resources/CaptureIt.ttf</file>
+        <file>resources/alarm clock.ttf</file>
+    </qresource>
+    <qresource prefix="/style">
+        <file>resources/style01.css</file>
+    </qresource>
+</RCC>
